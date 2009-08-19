@@ -1,9 +1,11 @@
-require 'spec'
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'rubygems'
+require 'rack'
+require 'action_controller'
 require 'rails_action_args'
+require 'spec'
+require File.expand_path(File.join(File.dirname(__FILE__), "controllers", "action_args"))
 
 Spec::Runner.configure do |config|
-  
 end
