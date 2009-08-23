@@ -25,9 +25,9 @@ describe "RailsActionArgs" do
     ActionArgsController.action(:defaults_mixed).call(Rack::MockRequest.env_for("/?foo=bar&baz=bar"))[2].body.should == "bar bar bar"    
   end
 
-  # it "should throw a BadRequest if the arguments are not provided" do
-  #   lambda { ActionArgsController.action(:index).call(Rack::MockRequest.env_for("/")) }.should raise_error(Merb::ControllerExceptions::BadRequest)
-  # end
+  it "should throw a BadRequest if the arguments are not provided" do
+    lambda { ActionArgsController.action(:index).call(Rack::MockRequest.env_for("/")) }.should raise_error(AbstractController::BadRequest)
+  end
 
   it "should treat define_method actions as equal" do
     ActionArgsController.action(:dynamic_define_method).call(Rack::MockRequest.env_for("/"))[2].body.should == "mos def"
@@ -45,13 +45,13 @@ describe "RailsActionArgs" do
     ActionArgsController.action(:with_default_array).call(Rack::MockRequest.env_for("/?foo=bar"))[2].body.should == "bar []"
   end
 
-  # it "should print out the missing parameters if all are required" do
-  #   lambda { ActionArgsController.action(:multi).call(Rack::MockRequest.env_for("/")) }.should raise_error(
-  #     Merb::ControllerExceptions::BadRequest, /were missing foo, bar/)
-  # end
-  # 
-  # it "should only print out missing parameters" do
-  #   lambda { ActionArgsController.action(:multi).call(Rack::MockRequest.env_for("/?foo=Hello")) }.should raise_error(
-  #     Merb::ControllerExceptions::BadRequest, /were missing bar/)          
-  # end
+  it "should print out the missing parameters if all are required" do
+    lambda { ActionArgsController.action(:multi).call(Rack::MockRequest.env_for("/")) }.should raise_error(
+      AbstractController::BadRequest, /were missing foo, bar/)
+  end
+  
+  it "should only print out missing parameters" do
+    lambda { ActionArgsController.action(:multi).call(Rack::MockRequest.env_for("/?foo=Hello")) }.should raise_error(
+      AbstractController::BadRequest, /were missing bar/)          
+  end
 end
