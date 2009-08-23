@@ -9,14 +9,14 @@ module ExtraActions
 end
 
 module Awesome
-  class ActionArgs < ActionController::Base
+  class ActionArgsController < ActionController::Base
     def index(foo)
       render :text => foo.to_s
     end
   end
 end
 
-class ActionArgs < ActionController::Base
+class ActionArgsController < ActionController::Base
   include ExtraActions
 
   def nada
