@@ -4,7 +4,7 @@ require 'bundler'
 Bundler.setup
 Bundler.require
 
-require 'rails_action_args'
+require 'rails-action-args'
 require File.expand_path(File.join(File.dirname(__FILE__), "controllers", "action_args_controller"))
 
 Spec::Runner.configure do |config|
