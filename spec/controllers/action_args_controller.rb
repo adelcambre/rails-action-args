@@ -3,10 +3,6 @@ class ApplicationController < ActionController::Base
 end
 
 module ExtraActions
-  # def self.included(base)
-  #   base.show_action(:funky_inherited_method)
-  # end
-
   def funky_inherited_method(foo, bar)
     render :text => "#{foo} #{bar}"
   end
@@ -57,3 +53,14 @@ class ActionArgsController < ApplicationController
 
 end
 
+class MyApp < Rails::Application
+   config.session_store :disabled
+
+   routes.draw do
+     match "/awesome/index" => "Awesome::ActionArgs#index"
+
+     controller :action_args do
+       match "/action_args/:action"
+     end
+  end
+end
