@@ -6,6 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "rails-action-args"
     gem.summary = %Q{A port of merb-action-args to Rails 3}
+    gem.description = "Rails Action Args allows you to accept the parameters to you action as arguments to the action method."
     gem.email = "adelcambre@engineyard.com"
     gem.homepage = "http://github.com/adelcambre/rails-action-args"
     gem.authors = ["Andy Delcambre"]
