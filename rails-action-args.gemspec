@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rails-action-args}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andy Delcambre"]
@@ -24,12 +24,12 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION.yml",
-     "lib/rails_action_args.rb",
-     "lib/rails_action_args/abstract_controller.rb",
-     "lib/rails_action_args/get_args.rb",
-     "lib/rails_action_args/jruby_args.rb",
-     "lib/rails_action_args/mri_args.rb",
-     "lib/rails_action_args/vm_args.rb",
+     "lib/rails-action-args.rb",
+     "lib/rails-action-args/abstract_controller.rb",
+     "lib/rails-action-args/get_args.rb",
+     "lib/rails-action-args/jruby_args.rb",
+     "lib/rails-action-args/mri_args.rb",
+     "lib/rails-action-args/vm_args.rb",
      "rails-action-args.gemspec",
      "spec/controllers/action_args_controller.rb",
      "spec/rails_action_args_spec.rb",
