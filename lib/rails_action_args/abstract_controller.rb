@@ -1,26 +1,26 @@
+require 'abstract_controller'
+require 'active_support/concern'
+
 # Hook up the BadRequest exception to return 400 Bad Request
 class AbstractController::BadRequest < StandardError; end
 ActionDispatch::ShowExceptions.rescue_responses["AbstractController::BadRequest"] = :bad_request
 
 module ActionArgs
+  extend ActiveSupport::Concern
 
-  def self.included(base)
-    base.class_eval do
-      class << self
-        def action_arguments(action)
-          @action_arguments ||= {}
-          return @action_arguments[action] if @action_arguments[action]
+  module ClassMethods
+    def action_arguments(action)
+      @action_arguments ||= {}
+      return @action_arguments[action] if @action_arguments[action]
 
-          arguments = instance_method(action).get_args.first || []
+      arguments = instance_method(action).get_args.first || []
 
-          defaults = arguments.map do |arg|
-            if arg.size == 2
-              arg.first
-            end
-          end.compact
-          @action_arguments[action] = [arguments, defaults]
+      defaults = arguments.map do |arg|
+        if arg.size == 2
+          arg.first
         end
-      end
+      end.compact
+      @action_arguments[action] = [arguments, defaults]
     end
   end
 
