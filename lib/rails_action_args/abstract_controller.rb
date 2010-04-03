@@ -7,23 +7,18 @@ module ActionArgs
   def self.included(base)
     base.class_eval do
       class << self
-        attr_accessor :action_argument_list
-        alias_method :old_inherited, :inherited
+        def action_arguments(action)
+          @action_arguments ||= {}
+          return @action_arguments[action] if @action_arguments[action]
 
-        # Stores the argument lists for all methods for this class.
-        #
-        # ==== Parameters
-        # klass<Class>::
-        #   The controller that is being inherited from AbstractController.
-        def inherited(klass)
-          klass.action_argument_list = Hash.new do |hash,action|
-            args = klass.instance_method(action).get_args
-            arguments = args[0]
-            defaults = []
-            arguments.each {|a| defaults << a[0] if a.size == 2} if arguments
-            hash[action] = [arguments || [], defaults]
-          end
-          old_inherited(klass)
+          arguments = instance_method(action).get_args.first || []
+
+          defaults = arguments.map do |arg|
+            if arg.size == 2
+              arg.first
+            end
+          end.compact
+          @action_arguments[action] = [arguments, defaults]
         end
       end
     end
@@ -37,7 +32,7 @@ module ActionArgs
   # ==== Raises
   # BadRequest:: The params hash doesn't have a required parameter.
   def send_action(action)
-    arguments, defaults = self.class.action_argument_list[action.to_s]
+    arguments, defaults = self.class.action_arguments(action.to_s)
 
     args = arguments.map do |arg, default|
       p = params.key?(arg.to_sym)
