@@ -1,7 +1,9 @@
 begin
   require "methopara"
-rescue
-  puts "make sure you have methora http://github.com/genki/methopara installed if you want to use action args on Ruby 1.9"
+rescue LoadError
+  unless RUBY_VERSION >= "1.9.2"
+    puts "make sure you have methopara (http://github.com/genki/methopara) installed if you want to use action args with Ruby < 1.9.2"
+  end
 end
 
 module GetArgs
